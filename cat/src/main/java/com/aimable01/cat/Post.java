@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.util.Date;
+
 @Entity
 @Data
 public class Post {
@@ -14,5 +16,5 @@ public class Post {
     private int id;
     private String title;
     private String content;
-
+    private Date createdAt;
 }
