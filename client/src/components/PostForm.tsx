@@ -18,7 +18,6 @@ export default function PostForm({
     initialData || {
       title: "",
       content: "",
-      userId: 1, // Hardcoded for simplicity, should be dynamic in real app
     }
   );
   const [error, setError] = useState("");
@@ -50,12 +49,12 @@ export default function PostForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 max-w-lg mx-auto p-6 bg-white rounded-lg shadow"
+      className="space-y-6 max-w-xl mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100"
     >
       <div>
         <label
           htmlFor="title"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-semibold text-gray-800 mb-2"
         >
           Title
         </label>
@@ -64,7 +63,8 @@ export default function PostForm({
           id="title"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200 ease-in-out"
+          placeholder="Enter post title"
           disabled={isSubmitting}
         />
       </div>
@@ -72,7 +72,7 @@ export default function PostForm({
       <div>
         <label
           htmlFor="content"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-semibold text-gray-800 mb-2"
         >
           Content
         </label>
@@ -83,25 +83,30 @@ export default function PostForm({
             setFormData({ ...formData, content: e.target.value })
           }
           rows={4}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200 ease-in-out resize-none"
+          placeholder="Write your post content here"
           disabled={isSubmitting}
         />
       </div>
 
-      {error && <div className="text-red-600 text-sm">{error}</div>}
+      {error && (
+        <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-md">
+          <p className="text-red-700 text-sm">{error}</p>
+        </div>
+      )}
 
-      <div className="flex justify-end space-x-3">
+      <div className="flex justify-end space-x-4 pt-4">
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+          className="px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition duration-200 ease-in-out"
           disabled={isSubmitting}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="px-6 py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200 ease-in-out transform hover:scale-[1.02]"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Saving..." : postId ? "Update" : "Create"}

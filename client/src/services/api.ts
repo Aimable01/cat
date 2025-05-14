@@ -17,7 +17,6 @@ export interface Post {
 export interface PostInput {
   title: string;
   content: string;
-  userId: number;
 }
 
 export interface PaginatedResponse<T> {
@@ -49,7 +48,7 @@ export interface PaginatedResponse<T> {
   empty: boolean;
 }
 
-export const getPosts = async (page = 0, size = 10) => {
+export const getPosts = async (page = 0, size = 9) => {
   const response = await api.get<PaginatedResponse<Post>>(
     `/posts?page=${page}&size=${size}`
   );

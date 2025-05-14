@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { type Post, getPosts, deletePost } from "../services/api";
+import PostForm from "./PostForm";
 
 export default function PostList() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
   const postsPerPage = 10;
 
   useEffect(() => {
@@ -25,6 +27,8 @@ export default function PostList() {
   };
 
   const handleDelete = async (id: number) => {
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
+
     try {
       await deletePost(id);
       fetchPosts(); // Refresh the list
@@ -32,6 +36,20 @@ export default function PostList() {
       console.error("Error deleting post:", error);
     }
   };
+
+  if (editingPost) {
+    return (
+      <PostForm
+        postId={editingPost.id}
+        initialData={editingPost}
+        onSuccess={() => {
+          setEditingPost(null);
+          fetchPosts();
+        }}
+        onCancel={() => setEditingPost(null)}
+      />
+    );
+  }
 
   if (isLoading) {
     return (
@@ -51,6 +69,12 @@ export default function PostList() {
                 {new Date(post.createdAt).toLocaleDateString()}
               </span>
               <div className="space-x-2">
+                <button
+                  onClick={() => setEditingPost(post)}
+                  className="text-blue-600 hover:text-blue-800 mr-2"
+                >
+                  Edit
+                </button>
                 <button
                   onClick={() => handleDelete(post.id)}
                   className="text-red-600 hover:text-red-800"
