@@ -14,9 +14,9 @@ export default function PostList() {
 
   const fetchPosts = async () => {
     try {
-      const response = await getPosts(currentPage, postsPerPage);
-      setPosts(response.data);
-      setTotalPages(Math.ceil(response.total / postsPerPage));
+      const response = await getPosts(currentPage - 1, postsPerPage);
+      setPosts(response.content);
+      setTotalPages(response.totalPages);
     } catch (error) {
       console.error("Error fetching posts:", error);
     } finally {
