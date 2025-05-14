@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
     @Autowired
@@ -33,4 +35,13 @@ public class PostService {
     public void delete(Integer id) {
         postRepository.deleteById(id);
     }
+
+    public List<Post> findByTitleUsingProcedure(String title) {
+        return postRepository.getPostsByTitle(title);
+    }
+
+    public List<Post> searchByTitle(String keyword) {
+        return postRepository.searchPostsByTitle(keyword);
+    }
+
 }

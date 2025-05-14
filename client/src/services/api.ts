@@ -73,3 +73,13 @@ export const updatePost = async (id: number, post: PostInput) => {
 export const deletePost = async (id: number) => {
   await api.delete(`/posts/${id}`);
 };
+
+export const searchPostsByTitle = async (keyword: string) => {
+  const response = await api.get<Post[]>(`/posts/search?keyword=${keyword}`);
+  return response.data;
+};
+
+export const getPostsByTitleUsingProcedure = async (title: string) => {
+  const response = await api.get<Post[]>(`/posts/by-title?title=${title}`);
+  return response.data;
+};

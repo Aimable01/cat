@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
@@ -46,4 +48,15 @@ public class PostController {
     public void delete(@PathVariable Integer id) {
         postService.delete(id);
     }
+
+    @GetMapping("/search")
+    public List<Post> search(@RequestParam String keyword) {
+        return postService.searchByTitle(keyword);
+    }
+
+    @GetMapping("/by-title")
+    public List<Post> getByTitleProcedure(@RequestParam String title) {
+        return postService.findByTitleUsingProcedure(title);
+    }
+
 }
