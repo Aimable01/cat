@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PostInput, createPost, updatePost } from "../services/api";
+import { type PostInput, createPost, updatePost } from "../services/api";
 
 interface PostFormProps {
   postId?: number;

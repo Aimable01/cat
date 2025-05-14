@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "http://localhost:8080/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -24,12 +24,12 @@ export interface PaginatedResponse<T> {
   data: T[];
   total: number;
   page: number;
-  limit: number;
+  size: number;
 }
 
-export const getPosts = async (page = 1, limit = 10) => {
+export const getPosts = async (page = 0, size = 10) => {
   const response = await api.get<PaginatedResponse<Post>>(
-    `/posts?page=${page}&limit=${limit}`
+    `/posts?page=${page}&size=${size}`
   );
   return response.data;
 };
